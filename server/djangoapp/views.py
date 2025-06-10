@@ -106,7 +106,7 @@ def get_cars(requests):
     car_models = CarModel.objects.select_related("car_make")
     cars = []
     for car_model in car_models:
-        cars.append({"Car Model": car_model.name, "Car Make": car_model.car_make.name})
+        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels": cars})
 
 
@@ -127,6 +127,7 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
         for review_detail in reviews:
             sentiment_dic = analyze_review_sentiments(review_detail["review"])
+            print(sentiment_dic)
             review_detail["sentiment"] = sentiment_dic["sentiment"]
         return JsonResponse({"status": 200, "reviews": reviews})
 
